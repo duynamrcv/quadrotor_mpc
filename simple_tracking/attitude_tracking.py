@@ -31,9 +31,9 @@ def predict_state(x0, u, T, N):
         states[i+1, 1] = states[i, 4]*T
         states[i+1, 2] = states[i, 5]*T
 
-        states[i+1, 3] = (states[i, 4]*states[i, 5]*(Iy-Iz) + la*u[i, 1])/Ix
-        states[i+1, 4] = (states[i, 3]*states[i, 5]*(Iz-Ix) + la*u[i, 2])/Iy
-        states[i+1, 5] = (states[i, 3]*states[i, 4]*(Ix-Iy) + u[i, 3])/Iz
+        states[i+1, 3] = (states[i, 4]*states[i, 5]*(Iy-Iz) + la*u[i, 1])/Ix*T
+        states[i+1, 4] = (states[i, 3]*states[i, 5]*(Iz-Ix) + la*u[i, 2])/Iy*T
+        states[i+1, 5] = (states[i, 3]*states[i, 4]*(Ix-Iy) + u[i, 3])/Iz*T
     return states
 
 def desired_command_and_trajectory(t, T, x0_:np.array, N_):

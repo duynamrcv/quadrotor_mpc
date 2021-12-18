@@ -32,8 +32,8 @@ def predict_state(x0, u, T, N):
         states[i+1, 0] = states[i, 2]*T
         states[i+1, 1] = states[i, 3]*T
 
-        states[i+1, 2] = np.sin(u[i,1])*U1/mq
-        states[i+1, 3] = np.sin(u[i,0])*U1/mq
+        states[i+1, 2] = np.sin(u[i,1])*U1/mq*T
+        states[i+1, 3] = np.sin(u[i,0])*U1/mq*T
     return states
 
 def desired_command_and_trajectory(t, T, x0_:np.array, N_):
@@ -121,8 +121,8 @@ if __name__ == "__main__":
     opti.subject_to(opti.bounded(-2, dx, 2))
     opti.subject_to(opti.bounded(-2, dy, 2))
 
-    opti.subject_to(opti.bounded(-1, phid, 1))
-    opti.subject_to(opti.bounded(-1, thed, 1))
+    opti.subject_to(opti.bounded(-0.5, phid, 0.5))
+    opti.subject_to(opti.bounded(-0.5, thed, 0.5))
 
     opts_setting = {'ipopt.max_iter':2000,
                     'ipopt.print_level':0,

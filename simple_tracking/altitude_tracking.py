@@ -29,7 +29,7 @@ def predict_state(x0, u, T, N):
     for i in range(N):
         states[i+1, 0] = states[i, 1]*T
 
-        states[i+1, 1] = g - u[i, 1]/mq
+        states[i+1, 1] = (g - u[i, 1]/mq)*T
     return states
 
 def desired_command_and_trajectory(t, T, x0_:np.array, N_):
