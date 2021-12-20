@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
  
 class Plotting:
-    def __init__(self, name, xlim=[-5,5], ylim=[-5,5], zlim=[0,5], is_grid=True):
+    def __init__(self, name, xlim=[-1.2,1.2], ylim=[-1.2,1.2], zlim=[0,5], is_grid=True):
         self.fig = plt.figure()
         self.ax = plt.axes(projection ='3d')
         self.ax.set_title(name)
@@ -19,6 +19,8 @@ class Plotting:
     def plot_path(self, path):
         path = np.array(path)
         self.ax.plot(path[:,0], path[:,1], -path[:,2])
+
+    # def plot_ref(self, ref):
 
 # if __name__ == "__main__":
 #     path = [[1,2,3,4],

@@ -102,7 +102,7 @@ if __name__ == "__main__":
     opti.subject_to(opti.bounded(-math.inf, z, 0))
     opti.subject_to(opti.bounded(-1.0, dz, 1.0))
 
-    opti.subject_to(opti.bounded(-12, thrust, 12))
+    opti.subject_to(opti.bounded(-0, thrust, 12))
 
     opts_setting = {'ipopt.max_iter':2000,
                     'ipopt.print_level':0,

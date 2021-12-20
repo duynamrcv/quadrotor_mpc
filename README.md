@@ -5,7 +5,7 @@ The controller for quadrotor tracking are include 3 subcontrollers. They are Alt
 ![MPC quad](images/quad_controller.png)
 
 The MPC solver is using [CasADi](https://web.casadi.org/).
-## The current version
+## The tracking of each controller
 Implement 3 MPC controller without relation
 
 ### The altitude tracking
@@ -17,7 +17,10 @@ Implement 3 MPC controller without relation
 ### The attitude tracking
 ![attitude](images/attitude_tracking.png)
 
+## The quadrotor tracking
+![tracking](images/quad_mpc_tracking.png)
+![control](images/quad_mpc_control.png)
+
 ## Todo
-* Connect all of them together to control the quadrotor
 
 * Implement LNMPC controller for stable behavior
