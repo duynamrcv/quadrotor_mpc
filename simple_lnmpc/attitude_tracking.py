@@ -44,17 +44,17 @@ def desired_command_and_trajectory(t, T, x0_:np.array, N_):
     # states for the next N_ trajectories
     for i in range(N_):
         t_predict = t + T*i
-        phi_ref_ = math.cos(2*math.pi/12*t_predict)
-        the_ref_ = math.sin(2*math.pi/15*t_predict)
-        psi_ref_ = 2*math.pi/10*t_predict
+        phi_ref_ = math.sin(2*t_predict)/3 + math.sin(4*t_predict)/6
+        the_ref_ = math.cos(2*t_predict)/3 + math.cos(4*t_predict)/6
+        psi_ref_ = math.pi*t_predict/10 + math.sin(3*t_predict)/5 + 0.5
         
-        dphi_ref_ = -2*math.pi/12*math.sin(2*math.pi/12*t_predict)
-        dthe_ref_ =  2*math.pi/15*math.cos(2*math.pi/15*t_predict)
-        dpsi_ref_ =  2*math.pi/12
+        dphi_ref_ =  2/3*math.cos(2*t_predict) + 2/3*math.cos(4*t_predict)
+        dthe_ref_ = -2/3*math.sin(2*t_predict) - 2/3*math.sin(4*t_predict)
+        dpsi_ref_ =  math.pi/10 + 3/5*math.cos(3*t_predict)
 
-        ddphi_ref_ = -(2*math.pi/12)**2*math.cos(2*math.pi/12*t_predict)
-        ddthe_ref_ = -(2*math.pi/15)**2*math.sin(2*math.pi/15*t_predict)
-        ddpsi_ref_ =  0
+        ddphi_ref_ = -4/3*math.sin(2*t_predict) - 8/3*math.sin(4*t_predict)
+        ddthe_ref_ = -4/3*math.cos(2*t_predict) - 8/3*math.cos(4*t_predict)
+        ddpsi_ref_ = -9/5*math.sin(3*t_predict)
 
         u0_ref_ = (Ix*ddphi_ref_ - dthe_ref_*dpsi_ref_*(Iy-Iz))/la
         u1_ref_ = (Iy*ddthe_ref_ - dphi_ref_*dpsi_ref_*(Iz-Ix))/la
@@ -113,7 +113,7 @@ if __name__ == "__main__":
         opti.subject_to(opt_states[i+1, :] == x_next)
     
     # weight matrix
-    Q = np.diag([30.0, 30.0, 30.0, 10.0, 10.0, 10.0])
+    Q = np.diag([30.0, 30.0, 30.0, 1.0, 1.0, 1.0])
     R = np.diag([1.0, 1.0, 1.0])
 
     # cost function
@@ -146,19 +146,19 @@ if __name__ == "__main__":
     dxi2 = opt_x_ref[2,3:] - opt_x_ref[1,3:]
 
     c1 = 1; c2 = 1
-    Ve =  S@(g1 + g2 - dxi2 + lamda*ca.transpose(z2)) + ca.transpose(S)@(c1*ca.tanh(S)) 
+    Ve =  S@(g1 + g2 - dxi2 + lamda*ca.transpose(z2)) + ca.transpose(S)@(c1*ca.tanh(S) + c2*S) 
 
     # boundary and control conditions
     opti.subject_to(opti.bounded(-math.pi/2, phi, math.pi/2))
     opti.subject_to(opti.bounded(-math.pi/2, the, math.pi/2))
     opti.subject_to(opti.bounded(-math.inf, psi, math.inf))
-    opti.subject_to(opti.bounded(-math.pi/4, dphi, math.pi/4))
-    opti.subject_to(opti.bounded(-math.pi/4, dthe, math.pi/4))
-    opti.subject_to(opti.bounded(-math.pi/4, dpsi, math.pi/4))
+    opti.subject_to(opti.bounded(-math.pi/2, dphi, math.pi/2))
+    opti.subject_to(opti.bounded(-math.pi/2, dthe, math.pi/2))
+    opti.subject_to(opti.bounded(-math.pi/2, dpsi, math.pi/2))
 
-    opti.subject_to(opti.bounded(-5, uphi, 5))
-    opti.subject_to(opti.bounded(-5, uthe, 5))
-    opti.subject_to(opti.bounded(-5, upsi, 5))
+    opti.subject_to(opti.bounded(-0.1, uphi, 0.1))
+    opti.subject_to(opti.bounded(-0.1, uthe, 0.1))
+    opti.subject_to(opti.bounded(-0.1, upsi, 0.1))
 
     # opti.subject_to(opti.bounded(-math.inf, Ve, 0))
 
@@ -293,3 +293,6 @@ if __name__ == "__main__":
 
     plt.show()
 
+    import scipy.io
+    scipy.io.savemat('a12_lnmpc.mat', dict(ans=xx))
+    scipy.io.savemat('u_lnmpc.mat', dict(ans=u_c))

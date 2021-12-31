@@ -12,7 +12,7 @@ def shift(u, x_n):
     return u_end, x_n
 
 class AltitudeMPC:
-    def __init__(self, quad, T=0.02, N=30, Q=np.diag([50.0, 1.0]), R=np.diag([1.0])):
+    def __init__(self, quad, T=0.02, N=30, Q=np.diag([100.0, 1.0]), R=np.diag([1.0])):
         self.quad = quad
         self.T = T  # time step
         self.N = N  # horizon length
@@ -96,7 +96,7 @@ class AltitudeMPC:
         return u_res
 
 class PositionMPC:
-    def __init__(self, quad, T=0.02, N=30, Q=np.diag([50.0, 50.0, 1.0, 1.0]), R=np.diag([1.0, 1.0])):
+    def __init__(self, quad, T=0.02, N=30, Q=np.diag([100.0, 100.0, 1.0, 1.0]), R=np.diag([1.0, 1.0])):
         self.quad = quad
         self.T = T  # time step
         self.N = N  # horizon length
@@ -188,7 +188,7 @@ class PositionMPC:
         return u_res[:,0], u_res[:,1]
 
 class AttitudeMPC:
-    def __init__(self, quad, T=0.02, N=30, Q=np.diag([50.0, 50.0, 50.0, 1.0, 1.0, 1.0]), R=np.diag([1.0, 1.0, 1.0])):
+    def __init__(self, quad, T=0.02, N=30, Q=np.diag([100.0, 100.0, 100.0, 1.0, 1.0, 1.0]), R=np.diag([1.0, 1.0, 1.0])):
         self.quad = quad
         self.T = T  # time step
         self.N = N  # horizon length

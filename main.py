@@ -22,8 +22,8 @@ class Trajectory:
         ref = []
         for i in range(int(self.sim_time/self.dt)):
             t = i*self.dt
-            x = math.sin(2*math.pi*t/10)
-            y = math.cos(2*math.pi*t/10)
+            x = 10*math.sin(2*math.pi*t/10)
+            y = 10*math.cos(2*math.pi*t/10)
             z = -0.5*t
             yaw = 2*math.pi*t/10
             ref.append([x,y,z,yaw])
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     quad = Quadrotor()
 
     dt = 0.02
-    N = 30
+    N = 50
     sim_time = 10.0
     iner = 0
 

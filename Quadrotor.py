@@ -29,17 +29,17 @@ class Quadrotor:
         self.max_phi = 0.5; self.min_phi = -self.max_phi
         self.max_the = 0.5; self.min_the = -self.max_the
 
-        self.max_dx = 1.0; self.min_dx = -self.max_dx
-        self.max_dy = 1.0; self.min_dy = -self.max_dy
-        self.max_dz = 1.0; self.min_dz = -self.max_dz
+        self.max_dx = 5.0; self.min_dx = -self.max_dx
+        self.max_dy = 5.0; self.min_dy = -self.max_dy
+        self.max_dz = 5.0; self.min_dz = -self.max_dz
         self.max_dphi = math.pi/4; self.min_dphi = -self.max_dphi
         self.max_dthe = math.pi/4; self.min_dthe = -self.max_dthe
         self.max_dpsi = math.pi/4; self.min_dpsi = -self.max_dpsi
 
-        self.max_thrust = 15.0; self.min_thrust = 0.0
-        self.max_tau_phi = 5.0; self.min_tau_phi = -self.max_tau_phi
-        self.max_tau_the = 5.0; self.min_tau_the = -self.max_tau_the
-        self.max_tau_psi = 5.0; self.min_tau_psi = -self.max_tau_psi
+        self.max_thrust = 20.0; self.min_thrust = 0.0
+        self.max_tau_phi = 1.0; self.min_tau_phi = -self.max_tau_phi
+        self.max_tau_the = 1.0; self.min_tau_the = -self.max_tau_the
+        self.max_tau_psi = 1.0; self.min_tau_psi = -self.max_tau_psi
 
     def correctControl(self, thrust, tau_phi, tau_the, tau_psi):
         thrust = min(max(thrust, self.min_thrust), self.max_thrust)
