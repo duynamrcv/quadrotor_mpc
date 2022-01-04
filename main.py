@@ -141,7 +141,7 @@ if __name__ == "__main__":
     quad = Quadrotor()
 
     dt = 0.02
-    N = 30
+    N = 50
     sim_time = 10.0
     iner = 0
 
