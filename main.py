@@ -22,8 +22,8 @@ class Trajectory:
         ref = []
         for i in range(int(self.sim_time/self.dt)):
             t = i*self.dt
-            x = math.sin(2*math.pi*t/10)
-            y = math.cos(2*math.pi*t/10)
+            x = 5*math.sin(2*math.pi*t/10)
+            y = 5*math.cos(2*math.pi*t/10)
             z = -0.5*t
             yaw = 2*math.pi*t/10
             ref.append([x,y,z,yaw])
